@@ -1,4 +1,62 @@
 fn main() {
+    main_before_splice();
+
+    let s = String::from("hello world");
+    let hello = &s[0..5];
+    let world = &s[6..11];
+
+    let s = String::from("hello");
+    // these are the same
+    let slice = &s[0..2];
+    let slice = &s[..2];
+
+
+    let s = String::from("hello");
+    let len = s.len();
+    // these are the same
+    let slice = &s[3..len];
+    let slice = &s[3..];
+
+
+    let s = String::from("hello");
+    let len = s.len();
+    // these are the same
+    let slice = &s[0..len];
+    let slice = &s[..];
+
+
+    let mut s = String::from("hello world");
+    let word = first_word(&s);
+//    s.clear(); we couldn't do this as word is still just a reference to s and we are trying
+    // to use it below
+    println!("word: {}", word);
+}
+
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+
+//fn first_word(s: &String) -> usize {
+//    let bytes = s.as_bytes();
+//
+//    for (i, &item) in bytes.iter().enumerate() {
+//        if item == b' ' {
+//            return i;
+//        }
+//    }
+//
+//    s.len()
+//}
+
+fn main_before_splice() {
     let mut ss = String::from("hello");
     ss.push_str(", world!"); // push_str() appends a literal to a String
     println!("{}", ss); // This will print `hello, world!`
@@ -55,9 +113,9 @@ fn main() {
     // can't have more than 1 mutable reference, this works as {} is another scope
     let mut s = String::from("hello");
     {
-        let r1 = &mut s;
+        let _r1 = &mut s;
     } // r1 goes out of scope here, so we can make a new reference with no problems.
-    let r2 = &mut s;
+    let _r2 = &mut s;
 
 
     let mut s = String::from("hello");
