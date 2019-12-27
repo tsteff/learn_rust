@@ -45,7 +45,21 @@ fn main() {
     // correct way
     let s1 = String::from("hello");
     let len = calculate_length(&s1);
-    println!("The length of '{}' is {}.", s1, len);}
+    println!("The length of '{}' is {}.", s1, len);
+
+    // example of mutable when passing to another method
+    let mut s = String::from("hello");
+    change(&mut s);
+
+
+    // can't have more than 1 mutable reference, this works as {} is another scope
+    let mut s = String::from("hello");
+    {
+        let r1 = &mut s;
+    } // r1 goes out of scope here, so we can make a new reference with no problems.
+
+    let r2 = &mut s;
+}
 
     // some_string comes into scope
 fn takes_ownership(some_string: String) {
@@ -64,8 +78,14 @@ fn calculate_length_wrong_way(s: String) -> (String, usize) {
     (s, length)
 }
 
+
 // s is a reference to a String
 fn calculate_length(s: &String) -> usize {
     s.len()
 } // Here, s goes out of scope. But because it does not have ownership of what
   // it refers to, nothing happens.
+
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
