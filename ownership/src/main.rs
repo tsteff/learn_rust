@@ -37,10 +37,15 @@ fn main() {
     println!("x = {}", x);
 
 
+    // wrong way
     let s1 = String::from("hello");
-    let (s2, len) = calculate_length(s1);
+    let (s2, len) = calculate_length_wrong_way(s1);
     println!("The length of '{}' is {}.", s2, len);
-}
+
+    // correct way
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1);
+    println!("The length of '{}' is {}.", s1, len);}
 
     // some_string comes into scope
 fn takes_ownership(some_string: String) {
@@ -54,7 +59,13 @@ fn makes_copy(some_integer: i32) {
 } // Here, some_integer goes out of scope. Nothing special happens.
 
 
-fn calculate_length(s: String) -> (String, usize) {
+fn calculate_length_wrong_way(s: String) -> (String, usize) {
     let length = s.len();
     (s, length)
 }
+
+// s is a reference to a String
+fn calculate_length(s: &String) -> usize {
+    s.len()
+} // Here, s goes out of scope. But because it does not have ownership of what
+  // it refers to, nothing happens.
