@@ -1,0 +1,11 @@
+/target
+**/*.rs.bk
+
+# Intellij idea files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#MacOS
+.DS_Store
