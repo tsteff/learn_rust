@@ -57,8 +57,19 @@ fn main() {
     {
         let r1 = &mut s;
     } // r1 goes out of scope here, so we can make a new reference with no problems.
-
     let r2 = &mut s;
+
+
+    let mut s = String::from("hello");
+
+    let r1 = &s; // no problem
+    let r2 = &s; // no problem
+    println!("{} and {}", r1, r2);
+    // r1 and r2 are no longer used after this point
+
+    // no problem because r1 and r2 aren't used again. If they were then fail
+    let r3 = &mut s;
+    println!("{}", r3);
 }
 
     // some_string comes into scope
