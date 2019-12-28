@@ -1,0 +1,14 @@
+/target
+**/*.rs.bk
+
+# Intellij idea files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# vscode
+.vscode/
+
+#MacOS
+.DS_Store
